@@ -1,0 +1,43 @@
+<root>
+  This is root's value
+  <children1>
+    This is children1's value
+    <count>1</count>
+    <count>2</count>
+    <count>3</count>
+    <count>4</count>
+    This is children1's second value
+  </children1>
+  <childrenWithAttrs count="1">
+    This will fail for sure
+    <subChild no_children="true">20.48<value>20</value></subChild>
+    <subChild/>
+  </childrenWithAttrs>
+  <childrenWithAttrs count="2">
+    <subChild>
+      Have u handled this?
+      <count moreCounts="false">1</count>
+    </subChild>
+    <subChild attr="subchild">
+      <count>1</count>
+      Is this handled?
+      <count>2</count>
+      <text>This is subchild's child text</text>
+      <innerElements>
+        <element1>
+          <comment>This is comment of inner element1</comment>
+        </element1>
+        <element2>
+          <comment>This is comment of inner element2</comment>
+        </element2>
+      </innerElements>
+    </subChild>
+  </childrenWithAttrs>
+  <childrenWithAttrs no_children="true"/>
+  <childrenWithAttrs>
+    <subChild>
+      21.48
+      <value>21</value>
+    </subChild>
+  </childrenWithAttrs>
+</root>
