@@ -6,7 +6,7 @@ defmodule XMLParser do
 
   @doc """
   - Parses the XML string given to the [Map](https://hexdocs.pm/elixir/Map.html).
-  - Returns {:ok, result} on success, else returns {:error, "Invalid XML"}.
+  - Returns `{:ok, result}` on success, else returns `{:error, "Invalid XML"}`.
 
   ## Examples
 

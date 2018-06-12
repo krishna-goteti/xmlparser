@@ -5,12 +5,12 @@ defmodule XMLParser.Elements do
   """
 
   @doc """
-   - `map` must be the `Elixir.Map` where the elements data will be appended.
+   - `map` must be a [Map](https://hexdocs.pm/elixir/Map.html) where the elements data will be appended.
    - `elements` must be the list containing the structure [{root, attributes, elements}, ...]
    - `root` must be the binary, where the `root-value` will be created if no child-elements available.
-   - `attributes` is a map where it has to be a keyword list or a `Elixir.Map`
+   - `attributes` is a map where it has to be a keyword list or a [Map](https://hexdocs.pm/elixir/Map.html)
 
-  RETURNS a map which contains the elements and attributes merged as key-value pairs.
+  RETURNS a [Map](https://hexdocs.pm/elixir/Map.html) which contains the elements and attributes merged as key-value pairs.
   """
   def parse(map, elements, root, attributes)
     when is_map(map) and is_list(elements) and is_binary(root) and (is_map(attributes) or is_list(attributes)) do
@@ -117,8 +117,8 @@ defmodule XMLParser.Elements do
   @doc """
    - Used to format attributes for the given converted xml element
 
-  RETURNS a map containing the attributes as below
-  %{"attribute_name" => "attribute_value"}
+  RETURNS a [Map](https://hexdocs.pm/elixir/Map.html) containing the attributes as
+  `%{"attribute_name" => "attribute_value"}`
   """
   def format_attributes(attrs) do
     Enum.map(attrs, fn {k, v} -> {to_string(k), to_string(v)} end)
