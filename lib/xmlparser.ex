@@ -7,10 +7,20 @@ defmodule XMLParser do
   """
 
   @doc """
+  - Parses the XML string given to the map.
+  - Returns {:ok, result} on success, else returns {:error, "Invalid XML"}.
 
   ## Examples
 
-      iex> XMLParser.parse("<root><child1>I am child1</child1><child2><subChild>I am sub child</subChild></child2></root>")
+      iex> xml = \"\"\"
+      <root>
+        <child1>I am child1</child1>
+        <child2>
+          <subChild>I am sub child</subChild>
+        </child2>
+      </root>
+      \"\"\"
+      iex> XMLParser.parse(xml)
       {:ok,
        %{
          "root" => %{
@@ -32,10 +42,19 @@ defmodule XMLParser do
   end
 
   @doc """
+  - Parses the XML string given to the map, raises / throws an exception on error.
 
   ## Examples
 
-      iex> XMLParser.parse!("<root><child1>I am child1</child1><child2><subChild>I am sub child</subChild></child2></root>")
+      iex> xml = \"\"\"
+      <root>
+        <child1>I am child1</child1>
+        <child2>
+          <subChild>I am sub child</subChild>
+        </child2>
+      </root>
+      \"\"\"
+      iex> XMLParser.parse!(xml)
       %{
         "root" => %{
           "child1" => "I am child1",

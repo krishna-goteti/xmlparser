@@ -1,11 +1,14 @@
 defmodule XMLParser.Elements do
 
+  @moduledoc """
+  Used for parsing the elements in the XML.
+  """
+
   @doc """
-   - Used for parsing the elements in the XML.
-   - `map`: must be the `Elixir.Map` where the elements data will be appended.
-   - `elements`: must be the list containing the structure [{root, attributes, elements}, ...]
-   - `root`: must be the binary, where the `root-value` will be created if no child-elements available.
-   - `attributes`: is a map where it has to be a keyword list or a `Elixir.Map`
+   - `map` must be the `Elixir.Map` where the elements data will be appended.
+   - `elements` must be the list containing the structure [{root, attributes, elements}, ...]
+   - `root` must be the binary, where the `root-value` will be created if no child-elements available.
+   - `attributes` is a map where it has to be a keyword list or a `Elixir.Map`
 
   RETURNS a map which contains the elements and attributes merged as key-value pairs.
   """
