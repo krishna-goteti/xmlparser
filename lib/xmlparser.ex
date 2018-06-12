@@ -1,7 +1,7 @@
 defmodule XMLParser do
   @moduledoc """
    - Uses external dependencies `:erlsom` and `Poison` to parse the XML string.
-   - Used for converting the XML string given to either JSON String or Elixr.map
+   - Used for converting the XML string given to either JSON String or Elixir.map
    - For converting XML to Elixir.map use XMLParser.parse/1 or XMLParser.parse!/1
    - For converting XML to JSON string use XMLParser.parse_to_json_string/1 or XMLParser.parse_to_json_string!/1
   """
