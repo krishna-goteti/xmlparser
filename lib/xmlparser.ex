@@ -1,13 +1,11 @@
 defmodule XMLParser do
   @moduledoc """
-   - Uses external dependencies `:erlsom` and `Poison` to parse the XML string.
-   - Used for converting the XML string given to either JSON String or Elixir.map
-   - For converting XML to Elixir.map use XMLParser.parse/1 or XMLParser.parse!/1
-   - For converting XML to JSON string use XMLParser.parse_to_json_string/1 or XMLParser.parse_to_json_string!/1
+   - Uses external dependencies [:erlsom](https://github.com/willemdj/erlsom) to parse the XML string.
+   - For converting XML to [Map](https://hexdocs.pm/elixir/Map.html) use `XMLParser.parse/1` or `XMLParser.parse!/1`
   """
 
   @doc """
-  - Parses the XML string given to the map.
+  - Parses the XML string given to the [Map](https://hexdocs.pm/elixir/Map.html).
   - Returns {:ok, result} on success, else returns {:error, "Invalid XML"}.
 
   ## Examples
@@ -42,7 +40,7 @@ defmodule XMLParser do
   end
 
   @doc """
-  - Parses the XML string given to the map, raises / throws an exception on error.
+  - Parses the XML string given to the [Map](https://hexdocs.pm/elixir/Map.html), raises / throws an exception on error.
 
   ## Examples
 
