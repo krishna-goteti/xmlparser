@@ -7,7 +7,7 @@ defmodule XMLParser.Elements do
   @doc """
    - `map` must be a [Map](https://hexdocs.pm/elixir/Map.html) where the elements data will be appended.
    - `elements` must be the list containing the structure [{root, attributes, elements}, ...]
-   - `root` must be the binary, where the `root-value` will be created if no child-elements available.
+   - `root` must be the binary, where the `root_value` will be created if no child-elements available.
    - `attributes` is a map where it has to be a keyword list or a [Map](https://hexdocs.pm/elixir/Map.html)
 
   RETURNS a [Map](https://hexdocs.pm/elixir/Map.html) which contains the elements and attributes merged as key-value pairs.
@@ -21,15 +21,15 @@ defmodule XMLParser.Elements do
     elements = elements -- orig_values
     map = cond do
       {root_values, attributes, elements} == {[], %{}, []} ->
-        %{"#{root}-value" => ""}
+        %{"#{root}_value" => ""}
       length(root_values) == 0 ->
         %{}
-      length(root_values) == 1 and is_nil(map["#{root}-value"]) ->
-        %{"#{root}-value" => hd(root_values)}
-      length(root_values) > 1 and is_nil(map["#{root}-value"]) ->
-        %{"#{root}-value" => root_values}
-      length(root_values) >= 1 and !(is_nil(map["#{root}-value"])) ->
-        %{"#{root}-value" => List.flatten([map["#{root}-value"], root_values])}
+      length(root_values) == 1 and is_nil(map["#{root}_value"]) ->
+        %{"#{root}_value" => hd(root_values)}
+      length(root_values) > 1 and is_nil(map["#{root}_value"]) ->
+        %{"#{root}_value" => root_values}
+      length(root_values) >= 1 and !(is_nil(map["#{root}_value"])) ->
+        %{"#{root}_value" => List.flatten([map["#{root}_value"], root_values])}
     end |> Map.merge(map)
     {duplicate_elements, non_repeating_elements, duplicates} =
       differentiate_elements(elements)
@@ -65,14 +65,14 @@ defmodule XMLParser.Elements do
         {length(element_values), child_elements, attributes} == {1, [], %{}} ->
           hd(element_values)
         length(element_values) == 1 and child_elements == [] and attributes != %{}->
-          %{"#{root}-value" => hd(element_values)} |> Map.merge(attributes)
+          %{"#{root}_value" => hd(element_values)} |> Map.merge(attributes)
         element_values == [] and child_elements != [] ->
           parse(%{}, child_elements, root, attrs)
         {element_values, child_elements} != {[], []} ->
           if length(element_values) == 1 do
-            %{"#{root}-value" => hd(element_values)}
+            %{"#{root}_value" => hd(element_values)}
           else
-            %{"#{root}-value" => element_values}
+            %{"#{root}_value" => element_values}
           end |> parse(child_elements, root, attrs)
       end
       Map.put(acc, root, elements)

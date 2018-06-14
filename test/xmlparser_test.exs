@@ -14,7 +14,7 @@ defmodule XMLParserTest do
     end
 
     test "should have child_elements", response do
-      assert response["root-value"] == "\n  This is root's value\n  "
+      assert response["root_value"] == "\n  This is root's value\n  "
       assert is_list(response["childrenWithAttrs"])
       assert is_map(response["children1"])
     end
@@ -25,9 +25,9 @@ defmodule XMLParserTest do
       [empty_map, child_map, no_children, one_child] = response["childrenWithAttrs"]
       # For checking whether the order is maintained.
       map = %{
-        "childrenWithAttrs-value" => "\n    This will fail for sure\n    ",
+        "childrenWithAttrs_value" => "\n    This will fail for sure\n    ",
         "count" => "1",
-        "subChild" => [%{"no_children" => "true", "subChild-value" => "20.48", "value" => "20"}, %{"subChild-value" => ""}]
+        "subChild" => [%{"no_children" => "true", "subChild_value" => "20.48", "value" => "20"}, %{"subChild_value" => ""}]
       }
       assert empty_map == map
       to_check = %{
@@ -35,41 +35,41 @@ defmodule XMLParserTest do
         "subChild" => [
           %{
             "count" => %{
-              "count-value" => "1",
+              "count_value" => "1",
               "moreCounts" => "false"
             },
-            "subChild-value" => "\n      Have u handled this?\n      "
+            "subChild_value" => "\n      Have u handled this?\n      "
           },
           %{
             "attr" => "subchild",
             "count" => [
-              %{"count-value" => "1"},
-              %{"count-value" => "2"}
+              %{"count_value" => "1"},
+              %{"count_value" => "2"}
             ],
             "innerElements" => %{
               "element1" => %{"comment" => "This is comment of inner element1"},
               "element2" => %{"comment" => "This is comment of inner element2"}
             },
-            "subChild-value" => "\n      Is this handled?\n      ",
+            "subChild_value" => "\n      Is this handled?\n      ",
             "text" => "This is subchild's child text"
           }
         ]
       }
       assert child_map == to_check
       assert no_children == %{"no_children" => "true"}
-      assert one_child == %{"subChild" => %{"value" => "21", "subChild-value" => "\n      21.48\n      "}}
+      assert one_child == %{"subChild" => %{"value" => "21", "subChild_value" => "\n      21.48\n      "}}
     end
 
     test "should have the children1", response do
       assert Map.has_key?(response, "children1")
       count_list = [
-        %{"count-value" => "1"},
-        %{"count-value" => "2" },
-        %{"count-value" => "3"},
-        %{"count-value" => "4"}
+        %{"count_value" => "1"},
+        %{"count_value" => "2" },
+        %{"count_value" => "3"},
+        %{"count_value" => "4"}
       ]
       assert get_in(response, ["children1", "count"]) == count_list
-      assert get_in(response, ["children1", "children1-value"]) == ["\n    This is children1's second value\n  ", "\n    This is children1's value\n    "]
+      assert get_in(response, ["children1", "children1_value"]) == ["\n    This is children1's second value\n  ", "\n    This is children1's value\n    "]
     end
 
   end
