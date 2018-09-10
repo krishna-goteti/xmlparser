@@ -24,7 +24,7 @@ defmodule XMLParser.MixProject do
   defp deps do
     [
       {:erlsom, github: "willemdj/erlsom"},
-      {:ex_doc, "~> 0.16", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
     ]
   end
 
