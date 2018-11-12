@@ -9,7 +9,8 @@ defmodule XMLParser.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
-      docs: [main: "XMLParser"]
+      docs: [main: "XMLParser"],
+      extras: ["README.md", "CHANGELOG.md"]
     ]
   end
 

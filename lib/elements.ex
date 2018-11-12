@@ -12,6 +12,7 @@ defmodule XMLParser.Elements do
 
   RETURNS a [Map](https://hexdocs.pm/elixir/Map.html) which contains the elements and attributes merged as key-value pairs.
   """
+  @spec parse(map, list, String.t, Enumerable.t) :: map
   def parse(map, elements, root, attributes)
     when is_map(map) and is_list(elements) and is_binary(root) and (is_map(attributes) or is_list(attributes)) do
 
@@ -38,10 +39,8 @@ defmodule XMLParser.Elements do
 
     # Parsing repeated elements (duplicates) in xml to list
     repeated_elements = Enum.map(duplicates, fn(duplicate)->
-      list =
-        duplicate_elements
-        |> Enum.filter(&(elem(&1, 0) == duplicate))
-        |> Enum.map(&(parse(%{}, elem(&1, 2), to_string(elem(&1, 0)), elem(&1, 1))))
+      list = for {root, attrs, elements} <- duplicate_elements, root == duplicate,
+        do: parse(%{}, elements, to_string(root), attrs)
       {List.to_string(duplicate), list}
     end) |> Map.new()
 
@@ -92,10 +91,7 @@ defmodule XMLParser.Elements do
 
   # Used for differentiating elements i.e duplicates and the repeated elements in xml.
   defp differentiate_elements(elements) do
-    element_names =
-      elements
-      |> Enum.filter(&is_tuple/1)
-      |> Enum.map(&(elem(&1, 0)))
+    element_names = for element <- elements, is_tuple(element), do: elem(element, 0)
 
     unique_element_names = Enum.uniq(element_names)
 
@@ -120,6 +116,7 @@ defmodule XMLParser.Elements do
   RETURNS a [Map](https://hexdocs.pm/elixir/Map.html) containing the attributes as
   `%{"attribute_name" => "attribute_value"}`
   """
+  @spec format_attributes(Enumerable.t) :: map
   def format_attributes(attrs) do
     Enum.map(attrs, fn {k, v} -> {to_string(k), to_string(v)} end)
     |> Map.new()

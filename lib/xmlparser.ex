@@ -27,6 +27,7 @@ defmodule XMLParser do
          }
        }}
   """
+  @spec parse(String.t) :: {:ok, map} | {:error, String.t}
   def parse(xml) when is_binary(xml) do
     try do
       {:ok, convert_xml_and_parse(xml)}
@@ -60,6 +61,7 @@ defmodule XMLParser do
         }
       }
   """
+  @spec parse!(String.t) :: map | no_return
   def parse!(xml) when is_binary(xml) do
     convert_xml_and_parse(xml)
   end
