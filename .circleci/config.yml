@@ -1,5 +1,5 @@
 # Check https://circleci.com/docs/2.0/language-elixir/ for more details
-version: 2
+version: 2.0
 jobs:
   build:
     docker:
@@ -21,3 +21,14 @@ jobs:
       - run: mix do deps.get, deps.compile
       - run: mix compile --warnings-as-errors --force
       - run: mix test # Elixir CircleCI 2.0 configuration file
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
