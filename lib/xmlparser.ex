@@ -78,8 +78,8 @@ defmodule XMLParser do
     root = to_string(root)
     attributes = XMLParser.Elements.format_attributes(attrs)
 
-    elements =
-      XMLParser.Elements.parse(%{}, elems, root, %{})
+    elements = %{}
+      |> XMLParser.Elements.parse(elems, root, %{})
       |> Map.merge(attributes)
 
     %{root => Map.merge(elements, attributes)}

@@ -25,7 +25,7 @@ defmodule XMLParser.Elements do
         {root_values, attributes, elements} == {[], %{}, []} ->
           %{"#{root}_value" => ""}
 
-        length(root_values) == 0 ->
+        Enum.empty?(root_values) ->
           %{}
 
         length(root_values) == 1 and is_nil(map["#{root}_value"]) ->
@@ -44,8 +44,8 @@ defmodule XMLParser.Elements do
     map = parse_non_repeated_elements(map, non_repeating_elements)
 
     # Parsing repeated elements (duplicates) in xml to list
-    repeated_elements =
-      Enum.map(duplicates, fn duplicate ->
+    repeated_elements = duplicates
+      |> Enum.map(fn duplicate ->
         list =
           for {root, attrs, elements} <- duplicate_elements,
               root == duplicate,
@@ -55,7 +55,8 @@ defmodule XMLParser.Elements do
       end)
       |> Map.new()
 
-    Map.merge(map, repeated_elements)
+    map
+    |> Map.merge(repeated_elements)
     |> Map.merge(attributes)
   end
 
@@ -86,12 +87,12 @@ defmodule XMLParser.Elements do
             parse(%{}, child_elements, root, attrs)
 
           {element_values, child_elements} != {[], []} ->
-            if length(element_values) == 1 do
+            elems = if length(element_values) == 1 do
               %{"#{root}_value" => hd(element_values)}
             else
               %{"#{root}_value" => element_values}
             end
-            |> parse(child_elements, root, attrs)
+            parse(elems, child_elements, root, attrs)
         end
 
       Map.put(acc, root, elements)
@@ -101,10 +102,10 @@ defmodule XMLParser.Elements do
   # Filters the values from sub-elements
   defp get_element_values(elements) do
     Enum.reduce(elements, {[], []}, fn element, {root_values, orig_values} ->
-      if !is_tuple(element) do
-        {[to_string(element) | root_values], [element | orig_values]}
-      else
+      if is_tuple(element) do
         {root_values, orig_values}
+      else
+        {[to_string(element) | root_values], [element | orig_values]}
       end
     end)
   end
@@ -139,7 +140,8 @@ defmodule XMLParser.Elements do
   """
   @spec format_attributes(Enumerable.t()) :: map
   def format_attributes(attrs) do
-    Enum.map(attrs, fn {k, v} -> {to_string(k), to_string(v)} end)
+    attrs
+    |> Enum.map(fn {k, v} -> {to_string(k), to_string(v)} end)
     |> Map.new()
   end
 end
