@@ -6,6 +6,7 @@ defmodule XMLParser.MixProject do
       app: :xmlparser,
       version: "0.1.0",
       elixir: "~> 1.0",
+      description: "An incredibly fast, pure Elixir XML library",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
