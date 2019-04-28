@@ -33,7 +33,7 @@ defmodule XMLParser.MixProject do
     [
       name: :xmlparser,
       files: ~w(lib mix.exs README.md LICENSE VERSION),
-      maintainers: ["Krishna Chakrapani"],
+      maintainers: ["Krishna"],
       links: %{"GitHub" => "https://github.com/devinus/poison"},
     ]
   end
