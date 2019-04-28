@@ -27,9 +27,14 @@ defmodule XMLParserTest do
       map = %{
         "childrenWithAttrs_value" => "\n    This will fail for sure\n    ",
         "count" => "1",
-        "subChild" => [%{"no_children" => "true", "subChild_value" => "20.48", "value" => "20"}, %{"subChild_value" => ""}]
+        "subChild" => [
+          %{"no_children" => "true", "subChild_value" => "20.48", "value" => "20"},
+          %{"subChild_value" => ""}
+        ]
       }
+
       assert empty_map == map
+
       to_check = %{
         "count" => "2",
         "subChild" => [
@@ -55,23 +60,32 @@ defmodule XMLParserTest do
           }
         ]
       }
+
       assert child_map == to_check
       assert no_children == %{"no_children" => "true"}
-      assert one_child == %{"subChild" => %{"value" => "21", "subChild_value" => "\n      21.48\n      "}}
+
+      assert one_child == %{
+               "subChild" => %{"value" => "21", "subChild_value" => "\n      21.48\n      "}
+             }
     end
 
     test "should have the children1", response do
       assert Map.has_key?(response, "children1")
+
       count_list = [
         %{"count_value" => "1"},
-        %{"count_value" => "2" },
+        %{"count_value" => "2"},
         %{"count_value" => "3"},
         %{"count_value" => "4"}
       ]
-      assert get_in(response, ["children1", "count"]) == count_list
-      assert get_in(response, ["children1", "children1_value"]) == ["\n    This is children1's second value\n  ", "\n    This is children1's value\n    "]
-    end
 
+      assert get_in(response, ["children1", "count"]) == count_list
+
+      assert get_in(response, ["children1", "children1_value"]) == [
+               "\n    This is children1's second value\n  ",
+               "\n    This is children1's value\n    "
+             ]
+    end
   end
 
   test "parsing invalid XML" do
@@ -81,5 +95,4 @@ defmodule XMLParserTest do
     catch_throw(XMLParser.parse!(xml))
     catch_throw(XMLParser.parse!(""))
   end
-
 end

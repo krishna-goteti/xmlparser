@@ -25,7 +25,7 @@ defmodule XMLParser.MixProject do
   defp deps do
     [
       {:erlsom, github: "willemdj/erlsom"},
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end
 
@@ -34,7 +34,7 @@ defmodule XMLParser.MixProject do
       name: :xmlparser,
       files: ~w(lib mix.exs README.md LICENSE VERSION),
       maintainers: ["Krishna"],
-      links: %{"GitHub" => "https://github.com/devinus/poison"},
+      links: %{"GitHub" => "https://github.com/devinus/poison"}
     ]
   end
 end

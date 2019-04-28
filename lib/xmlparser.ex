@@ -27,7 +27,7 @@ defmodule XMLParser do
          }
        }}
   """
-  @spec parse(String.t) :: {:ok, map} | {:error, String.t}
+  @spec parse(String.t()) :: {:ok, map} | {:error, String.t()}
   def parse(xml) when is_binary(xml) do
     try do
       {:ok, convert_xml_and_parse(xml)}
@@ -61,7 +61,7 @@ defmodule XMLParser do
         }
       }
   """
-  @spec parse!(String.t) :: map | no_return
+  @spec parse!(String.t()) :: map | no_return
   def parse!(xml) when is_binary(xml) do
     convert_xml_and_parse(xml)
   end
@@ -77,10 +77,11 @@ defmodule XMLParser do
 
     root = to_string(root)
     attributes = XMLParser.Elements.format_attributes(attrs)
-    elements = XMLParser.Elements.parse(%{}, elems, root, %{})
-    |> Map.merge(attributes)
+
+    elements =
+      XMLParser.Elements.parse(%{}, elems, root, %{})
+      |> Map.merge(attributes)
 
     %{root => Map.merge(elements, attributes)}
   end
-
 end
